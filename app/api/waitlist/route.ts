@@ -1,19 +1,12 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs/promises';
-import path from 'path';
+import { kv } from '@vercel/kv';
 
-// Define the path to the data file
-const dataFilePath = path.join((process as any).cwd(), 'data', 'waitlist.json');
-
-// Ensure the data directory and file exist
-async function ensureDataFile() {
-  try {
-    await fs.mkdir(path.dirname(dataFilePath), { recursive: true });
-    await fs.access(dataFilePath);
-  } catch (error) {
-    // If the file doesn't exist, create it with an empty array
-    await fs.writeFile(dataFilePath, JSON.stringify([]));
-  }
+interface WaitlistEntry {
+  name: string;
+  email: string;
+  country: string;
+  intent?: string;
+  submittedAt: string;
 }
 
 // Handler for POST requests to add a user to the waitlist
@@ -26,36 +19,38 @@ export async function POST(request: Request) {
     if (!name || !email || !country) {
       return NextResponse.json({ message: 'Missing required fields.' }, { status: 400 });
     }
-    
-    await ensureDataFile();
 
-    // Read the existing data
-    const fileContent = await fs.readFile(dataFilePath, 'utf-8');
-    const waitlist = JSON.parse(fileContent);
+    // Get the current waitlist from Vercel KV
+    const waitlist: WaitlistEntry[] = (await kv.get('waitlist')) || [];
 
     // Check for duplicates
-    const isDuplicate = waitlist.some((entry: any) => entry.email.toLowerCase() === email.toLowerCase());
+    const isDuplicate = waitlist.some((entry) => entry.email.toLowerCase() === email.toLowerCase());
     if (isDuplicate) {
         return NextResponse.json({ message: 'This email is already on the waitlist.' }, { status: 409 });
     }
 
     // Add new entry with a timestamp
-    const newEntry = {
+    const newEntry: WaitlistEntry = {
       name,
       email,
       country,
       intent,
       submittedAt: new Date().toISOString(),
     };
+
+    // Add the new entry to the list
     waitlist.push(newEntry);
 
-    // Write the updated data back to the file
-    await fs.writeFile(dataFilePath, JSON.stringify(waitlist, null, 2));
-    
+    // Save the updated list back to Vercel KV
+    await kv.set('waitlist', waitlist);
+
     return NextResponse.json({ message: 'Successfully subscribed!' }, { status: 200 });
 
   } catch (error) {
     console.error('Waitlist API Error:', error);
+    if (error instanceof Error && error.message.includes('Missing required environment variables')) {
+        return NextResponse.json({ message: 'KV Storage is not configured on the server.' }, { status: 500 });
+    }
     return NextResponse.json({ message: 'An internal server error occurred.' }, { status: 500 });
   }
 }
@@ -63,14 +58,15 @@ export async function POST(request: Request) {
 // Handler for GET requests to retrieve the waitlist
 export async function GET() {
   try {
-    await ensureDataFile();
-
-    const fileContent = await fs.readFile(dataFilePath, 'utf-8');
-    const waitlist = JSON.parse(fileContent);
+    // Get the waitlist from Vercel KV
+    const waitlist = (await kv.get('waitlist')) || [];
 
     return NextResponse.json(waitlist, { status: 200 });
   } catch (error) {
     console.error('Waitlist API Error:', error);
+     if (error instanceof Error && error.message.includes('Missing required environment variables')) {
+        return NextResponse.json({ message: 'KV Storage is not configured on the server.' }, { status: 500 });
+    }
     return NextResponse.json({ message: 'An internal server error occurred.' }, { status: 500 });
   }
 }

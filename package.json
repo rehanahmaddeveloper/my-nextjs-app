@@ -6,15 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-
-    "build:static": "next build",
-    "deploy:surge": "npm run build:static && surge ./out souldeeds.surge.sh"
+    "lint": "next lint"
   },
   "dependencies": {
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.2.3"
+    "next": "14.2.3",
+    "@vercel/kv": "^1.0.1"
   },
   "devDependencies": {
     "typescript": "^5",
