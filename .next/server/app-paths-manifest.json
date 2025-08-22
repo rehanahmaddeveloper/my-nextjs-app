@@ -1,5 +1,0 @@
-{
-  "/page": "app/page.js",
-  "/api/waitlist/route": "app/api/waitlist/route.js",
-  "/admin/waitlist/page": "app/admin/waitlist/page.js"
-}
