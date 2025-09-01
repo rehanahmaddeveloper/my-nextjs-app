@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { getSession } from '@/lib/session';
 import { Poppins } from 'next/font/google';
-import '../globals.css';
 
 const poppins = Poppins({
   subsets: ['latin'],
