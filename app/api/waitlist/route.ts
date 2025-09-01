@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { kv } from '@vercel/kv';
 
+export const dynamic = 'force-dynamic';
+
 // NOTE: This interface is implicitly used by kv.lpush/lrange but not explicitly typed in the function signatures.
 interface WaitlistEntry {
   name: string;

@@ -64,18 +64,18 @@ const WaitlistModal: React.FC<WaitlistModalProps> = ({ isOpen, onClose }) => {
       });
 
       if (!response.ok) {
-        let errorMessage = `An unexpected error occurred. (Status: ${response.status})`;
+        let message = `An unexpected error occurred. (Status: ${response.status})`;
         try {
-          // Attempt to parse a JSON error response from the server
-          const errorData = await response.json();
-          errorMessage = errorData.message || errorMessage;
-        } catch (jsonError) {
-          // If the response isn't JSON, the server likely crashed.
-          // We don't show the raw response to the user for security.
-          console.error("Could not parse error response as JSON.", jsonError);
-          // The generic message is already set.
+          // Read the response as text to avoid JSON parsing errors on empty bodies
+          const errorText = await response.text();
+          if (errorText) {
+            const errorData = JSON.parse(errorText);
+            message = errorData.message || message;
+          }
+        } catch (e) {
+          // Response was not empty but not valid JSON. The status-based message is the best we can do.
         }
-        throw new Error(errorMessage);
+        throw new Error(message);
       }
 
       setIsSuccess(true);
