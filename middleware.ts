@@ -4,21 +4,27 @@ import type { NextRequest } from 'next/server';
 const AUTH_COOKIE_NAME = 'souldeeds-auth';
 
 export function middleware(request: NextRequest) {
-  // Check for the authentication cookie
+  const { pathname } = request.nextUrl;
   const authCookie = request.cookies.get(AUTH_COOKIE_NAME);
+  const isLoggedIn = authCookie && authCookie.value === 'true';
 
-  // If the user is trying to access the waitlist page without a valid cookie,
-  // redirect them to the login page.
-  if (!authCookie || authCookie.value !== 'true') {
-    const loginUrl = new URL('/admin/login', request.url);
-    return NextResponse.redirect(loginUrl);
+  // If trying to access the protected waitlist page and not logged in,
+  // redirect to the login page.
+  if (pathname.startsWith('/admin/waitlist') && !isLoggedIn) {
+    return NextResponse.redirect(new URL('/admin/login', request.url));
   }
 
-  // If the cookie is present and valid, allow the request to proceed.
+  // If trying to access the login page but already logged in,
+  // redirect to the waitlist page.
+  if (pathname.startsWith('/admin/login') && isLoggedIn) {
+    return NextResponse.redirect(new URL('/admin/waitlist', request.url));
+  }
+
+  // Otherwise, allow the request to proceed.
   return NextResponse.next();
 }
 
 // Specify which paths this middleware should apply to.
 export const config = {
-  matcher: '/admin/waitlist',
+  matcher: ['/admin/waitlist', '/admin/login'],
 };
