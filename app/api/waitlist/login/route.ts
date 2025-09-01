@@ -15,7 +15,12 @@ export async function POST(request: Request) {
       return NextResponse.json({ message: 'Authentication is not configured.' }, { status: 500 });
     }
 
-    if (username === adminUsername && password === adminPassword) {
+    // Perform a case-insensitive match for the username for a better user experience,
+    // but keep the password check case-sensitive for security.
+    const isUsernameMatch = username?.toLowerCase() === adminUsername.toLowerCase();
+    const isPasswordMatch = password === adminPassword;
+
+    if (isUsernameMatch && isPasswordMatch) {
       // Set a secure, HTTP-only cookie to maintain the session
       cookies().set(AUTH_COOKIE_NAME, 'true', {
         httpOnly: true,
