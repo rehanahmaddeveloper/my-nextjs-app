@@ -41,7 +41,8 @@ const JourneySection: React.FC = () => {
       <div>
         {journeyData.map((step, index) => (
           <div key={step.number} className={index % 2 !== 0 ? 'bg-gray-50' : 'bg-white'}>
-            <div className="container mx-auto px-6 py-8 md:py-10">
+            {/* UPDATED: Increased vertical padding to make each section taller */}
+            <div className="container mx-auto px-6 py-16 md:py-20">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16 items-center">
                 
                 {/* Image Column */}
@@ -51,7 +52,8 @@ const JourneySection: React.FC = () => {
                     alt={step.title}
                     width={600}
                     height={600}
-                    className="rounded-2xl w-full max-w-sm mx-auto object-cover aspect-square"
+                    // UPDATED: Removed aspect-square and object-cover, added h-auto to prevent image cropping
+                    className="rounded-2xl w-full max-w-sm mx-auto h-auto"
                   />
                 </div>
                 

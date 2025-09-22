@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import './globals.css';
+// FIX: Import 'React' to resolve 'Cannot find namespace React' error.
+import React from 'react';
 
 const poppins = Poppins({
   subsets: ['latin'],

@@ -30,7 +30,13 @@ const Header: React.FC<HeaderProps> = ({ onWaitlistClick }) => {
     }
   }, [isMenuOpen]);
 
-  const navLinks = ["Home", "Projects", "Groups", "How it Works", "Privacy Policy"];
+  const navLinks = [
+    { name: "Home", href: "/" },
+    // { name: "Projects", href: "#" },
+    // { name: "How it Works", href: "#" },
+    { name: "page 2", href: "/landing2" },
+    // { name: "Privacy Policy", href: "#" },
+  ];
 
   // Dynamic header classes for a modern, responsive feel
   const headerClasses = `
@@ -42,7 +48,7 @@ const Header: React.FC<HeaderProps> = ({ onWaitlistClick }) => {
 
   return (
     <header className={headerClasses}>
-      <div className="max-w-7xl mx-auto px-6 py-2 flex justify-between items-center">
+      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
         {/* Logo */}
         <Link href="/" aria-label="SoulDeeds Home">
           <Image 
@@ -57,13 +63,13 @@ const Header: React.FC<HeaderProps> = ({ onWaitlistClick }) => {
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center space-x-8">
           {navLinks.map((link) => (
-            <a
-              key={link}
-              href="#"
+            <Link
+              key={link.name}
+              href={link.href}
               className="text-gray-700 hover:text-[#87127C] transition-colors duration-300 font-medium"
             >
-              {link}
-            </a>
+              {link.name}
+            </Link>
           ))}
         </nav>
 
@@ -118,14 +124,14 @@ const Header: React.FC<HeaderProps> = ({ onWaitlistClick }) => {
           {/* Mobile Nav Links */}
           <nav className="flex flex-col items-center space-y-8 text-center">
             {navLinks.map((link) => (
-              <a
-                key={link}
-                href="#"
+              <Link
+                key={link.name}
+                href={link.href}
                 className="text-2xl text-gray-800 hover:text-[#87127C] transition-colors duration-300"
                 onClick={() => setIsMenuOpen(false)}
               >
-                {link}
-              </a>
+                {link.name}
+              </Link>
             ))}
           </nav>
 

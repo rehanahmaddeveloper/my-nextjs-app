@@ -7,41 +7,48 @@ interface HeroProps {
 
 const Hero: React.FC<HeroProps> = ({ onWaitlistClick }) => {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-[#FDF5FD] to-white pt-20 pb-20 lg:pt-32 lg:pb-24">
+    // UPDATED: Reduced top padding to decrease the space above the hero content.
+    <section className="relative overflow-hidden bg-gradient-to-b from-white to-[#FFE9FD] pt-20 pb-20 lg:pt-28 lg:pb-24">
        <div className="container mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="text-center lg:text-left">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 leading-tight">
-              Do Good.
-              <br />
-              <span className="text-[#87127C]">Connect Deeply</span>
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          
+          {/* Left Column: Text Content */}
+          <div className="text-center lg:text-left z-10">
+            <h1 className="font-bold text-gray-800 leading-tight">
+              <span className="block text-xl md:text-3xl font-bold text-[#87127C] mb-2">
+                No more endless swiping.
+              </span>
+              <span className="text-[32px] leading-snug md:text-3xl">
+                Find halal connections that last and connect through shared purpose.
+              </span>
             </h1>
-            <div className="mt-4 flex justify-center lg:justify-start">
-                <svg width="57" height="4" viewBox="0 0 57 4" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="57" height="4" fill="#87127C"/>
-                </svg>
+            <div className="mt-6 flex justify-center lg:justify-start">
+                <div className="w-16 h-1 bg-[#87127C]"></div>
             </div>
-            <p className="mt-6 text-lg text-gray-600 max-w-lg mx-auto lg:mx-0">
+            <p className="mt-6 text-[15px] text-gray-600 max-w-lg mx-auto lg:mx-0">
               SoulDeeds is the first Muslim matrimonial platform that combines faith, service, and meaningful connection, no swiping, no pressure, just genuine connections.
             </p>
             <div className="mt-10">
               <button
                 onClick={onWaitlistClick}
-                className="w-full md:w-auto bg-gradient-to-r from-[#a53a9b] to-[#87127C] text-white font-semibold py-4 px-10 rounded-full shadow-lg shadow-[#87127C]/40 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                className="w-full md:w-auto bg-[#87127C] text-white font-semibold py-3 px-8 rounded-full shadow-md hover:bg-[#6c0e63] transition-all duration-300 transform hover:scale-105">
                 Join the Waitlist Now
               </button>
             </div>
           </div>
-          <div className="flex justify-center">
+          
+          {/* Right Column: Single Image */}
+          <div className="flex items-center justify-center mt-10 lg:mt-0">
              <Image 
-                src="/images/hero-image.png" 
-                alt="Happy couple" 
-                width={552}
-                height={368}
-                className="rounded-3xl object-cover"
+                src="/images/hero-image.png" // Placeholder for the hero image
+                alt="A happy Muslim couple representing a meaningful connection" 
+                width={550}
+                height={550}
+                className="rounded-2xl object-cover w-full max-w-md h-auto aspect-square"
                 priority
              />
           </div>
+
         </div>
       </div>
     </section>

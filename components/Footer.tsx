@@ -2,17 +2,18 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
-// A placeholder component for the new logo, as seen in the footer design
+// UPDATED: Replaced the SVG logo and text with a placeholder for a single PNG image.
 const FooterLogo: React.FC = () => (
-    <div className="flex items-center space-x-3">
-        {/* Placeholder for actual logo image. User requested to leave a space for it. */}
-        <svg width="48" height="42" viewBox="0 0 48 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M23.8313 41.25C23.6338 41.25 23.4363 41.1712 23.2913 41.0263L6.15128 23.8863C-1.25872 16.4763 -0.34872 4.98628 7.91128 1.29628C12.5613 -0.27372 17.5113 0.81628 21.0513 4.35628C21.9513 5.25628 22.9413 5.97628 24.1113 6.51628C25.2813 5.97628 26.2713 5.25628 27.1713 4.35628C33.0213 -1.49372 42.1113 -0.27372 45.2913 6.81628C48.4713 13.9063 45.5313 22.4763 38.6913 28.2363L24.8313 41.0263C24.6863 41.1712 24.4888 41.25 24.2913 41.25H23.8313Z" stroke="white" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
-            <path d="M31.4313 17.3463C29.3613 16.0863 27.5313 13.9863 25.7913 11.0763C24.0513 13.9863 22.2213 16.0863 20.1513 17.3463C18.0813 18.6063 15.5313 19.2363 13.2513 18.9663C10.9713 18.6963 9.26128 17.5263 8.15128 16.0863" stroke="white" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
-            <path d="M20.1513 26.4963C22.2213 27.7563 24.0513 29.8563 25.7913 32.7663C27.5313 29.8563 29.3613 27.7563 31.4313 26.4963C33.5013 25.2363 36.0513 24.6063 38.3313 24.8763C40.6113 25.1463 42.3213 26.3163 43.4313 27.7563" stroke="white" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-        <span className="text-3xl font-serif text-white">Soul Deeds</span>
+    <div>
+        <Image
+            src="/images/logo-footer.svg" 
+            alt="Soul Deeds Logo"
+            width={180}
+            height={50}
+            className="h-auto"
+        />
     </div>
 );
 
@@ -90,11 +91,6 @@ const Footer: React.FC = () => {
                 <div className="mt-16 border-t border-white/20 pt-8 text-center text-sm text-white/70">
                     <p>
                         &copy; Copyright {new Date().getFullYear()}. Soul Deeds. All Rights Reserved.
-                        <span className="mx-2 text-white/50 select-none hidden sm:inline">|</span>
-                        <br className="sm:hidden" />
-                        <Link href="/admin/waitlist" className="hover:text-white underline">
-                            View Waitlist Data
-                        </Link>
                     </p>
                 </div>
             </div>
