@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState } from 'react';
@@ -5,19 +6,19 @@ import React, { useState } from 'react';
 const faqData = [
   { 
     question: "Is SoulDeeds a dating app?",
-    answer: "No. SoulDeeds is a Muslim matrimonial and community platform designed for serious, faith-aligned connections—without the casual dating culture."
+    answer: "SoulDeeds is more than just a dating app; it's a matrimonial platform designed for Muslims who are serious about finding a life partner. We focus on deep compatibility through shared values and community service, moving beyond superficial swiping."
   },
   { 
     question: "How do I know my profile is safe?",
-    answer: "All profiles are verified and private, and guided conversations ensure a safe, halal environment."
+    answer: "Your privacy and safety are our top priorities. We have a multi-step verification process for all profiles. Conversations are guided and monitored to ensure they remain respectful and halal. You have full control over who can see your profile and contact you."
   },
   { 
     question: "When will SoulDeeds launch?",
-    answer: "We’re launching late-August 2025. Join the waitlist to be the first to access exclusive early invites!"
+    answer: "We are working hard to bring SoulDeeds to you! We are currently in the final stages of development and beta testing. Join our waitlist to be the first to know about our official launch date and receive exclusive early access."
   },
   { 
     question: "Is this for all Muslims worldwide?",
-    answer: "Yes! We are starting in the U.S., UK, Canada, and South Asia, with global expansion planned soon."
+    answer: "Yes! SoulDeeds is created for the global Muslim ummah. We aim to connect like-minded Muslims from all backgrounds and locations who are looking for a meaningful, faith-centered partnership."
   },
 ];
 

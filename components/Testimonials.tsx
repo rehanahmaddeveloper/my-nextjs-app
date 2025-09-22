@@ -1,6 +1,8 @@
+
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 
 const testimonialsData = [
   {
@@ -8,22 +10,22 @@ const testimonialsData = [
     name: "Sara",
     age: 28,
     role: "Beta Tester",
-    avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=256&h=256&fit=crop",
+    avatar: "/images/avatar-sara.jpg",
   },
   {
-    quote: "Finally, a platform where I can meet someone who shares my love for community and purpose. It feels genuine.",
+    quote: "Finally, a platform that understands the importance of shared values. The community service aspect is brilliant for seeing someone's true character.",
     name: "Ahmed",
-    age: 31,
-    role: "Beta Tester",
-    avatar: "https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?q=80&w=256&h=256&fit=crop",
+    age: 32,
+    role: "Early Adopter",
+    avatar: "/images/avatar-ahmed.jpg",
   },
-  // {
-  //   quote: "The guided conversations feature made me feel so much more comfortable. It's a respectful and meaningful way to get to know someone.",
-  //   name: "Layla",
-  //   age: 25,
-  //   role: "Waitlist Member",
-  //   avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=256&h=256&fit=crop",
-  // },
+  {
+    quote: "The guided conversations feature made me feel so much more comfortable. It's a respectful and meaningful way to get to know someone.",
+    name: "Layla",
+    age: 25,
+    role: "Waitlist Member",
+    avatar: "/images/avatar-layla.jpg",
+  },
 ];
 
 const Arrow = ({ direction, onClick }: { direction: 'left' | 'right'; onClick: () => void }) => (
@@ -89,10 +91,12 @@ const Testimonials = () => {
               
               {/* Main Testimonial Card */}
               <div className="relative bg-white rounded-3xl shadow-2xl p-8 pt-16 text-center z-10">
-                <img
+                <Image
                   src={currentTestimonial.avatar}
                   alt={currentTestimonial.name}
-                  className="absolute left-1/2 -translate-x-1/2 -top-12 w-24 h-24 rounded-full border-4 border-white object-cover shadow-lg"
+                  width={96}
+                  height={96}
+                  className="absolute left-1/2 -translate-x-1/2 -top-12 rounded-full border-4 border-white object-cover shadow-lg"
                 />
                 <h3 className="text-xl font-bold text-gray-900">{currentTestimonial.name}, {currentTestimonial.age}</h3>
                 <p className="text-sm text-gray-500 mb-4">{currentTestimonial.role}</p>

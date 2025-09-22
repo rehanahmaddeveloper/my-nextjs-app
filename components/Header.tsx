@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useEffect } from "react";
@@ -32,10 +33,10 @@ const Header: React.FC<HeaderProps> = ({ onWaitlistClick }) => {
 
   const navLinks = [
     { name: "Home", href: "/" },
-    // { name: "Projects", href: "#" },
-    // { name: "How it Works", href: "#" },
-    { name: "page 2", href: "/landing2" },
-    // { name: "Privacy Policy", href: "#" },
+    { name: "Projects", href: "#" },
+    { name: "How it Works", href: "#" },
+    { name: "Landing 2", href: "/landing2" },
+    { name: "Privacy Policy", href: "#" },
   ];
 
   // Dynamic header classes for a modern, responsive feel
@@ -48,7 +49,7 @@ const Header: React.FC<HeaderProps> = ({ onWaitlistClick }) => {
 
   return (
     <header className={headerClasses}>
-      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div className={`max-w-7xl mx-auto px-6 flex justify-between items-center transition-all duration-300 ${isScrolled ? 'py-2' : 'py-4'}`}>
         {/* Logo */}
         <Link href="/" aria-label="SoulDeeds Home">
           <Image 

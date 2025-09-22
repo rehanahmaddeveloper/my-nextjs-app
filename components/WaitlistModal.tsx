@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useEffect, FormEvent } from 'react';
@@ -64,18 +65,8 @@ const WaitlistModal: React.FC<WaitlistModalProps> = ({ isOpen, onClose }) => {
       });
 
       if (!response.ok) {
-        let message = `An unexpected error occurred. (Status: ${response.status})`;
-        try {
-          // Read the response as text to avoid JSON parsing errors on empty bodies
-          const errorText = await response.text();
-          if (errorText) {
-            const errorData = JSON.parse(errorText);
-            message = errorData.message || message;
-          }
-        } catch (e) {
-          // Response was not empty but not valid JSON. The status-based message is the best we can do.
-        }
-        throw new Error(message);
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Something went wrong. Please try again.');
       }
 
       setIsSuccess(true);
