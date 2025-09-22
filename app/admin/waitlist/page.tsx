@@ -1,9 +1,16 @@
 'use client';
 
+// FIX: Add global JSX namespace declaration to fix errors with intrinsic elements.
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      [elemName: string]: any;
+    }
+  }
+}
+
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-
 
 interface WaitlistEntry {
   name: string;
@@ -17,8 +24,6 @@ const WaitlistAdminPage: React.FC = () => {
   const [waitlist, setWaitlist] = useState<WaitlistEntry[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
-
 
   useEffect(() => {
     const fetchWaitlist = async () => {
@@ -42,11 +47,6 @@ const WaitlistAdminPage: React.FC = () => {
     fetchWaitlist();
   }, []);
 
-  const handleLogout = async () => {
-    await fetch('/api/logout', { method: 'POST' });
-    router.push('/admin/login');
-  };
-
   return (
     <div className="bg-gray-50 min-h-screen font-sans">
       <header className="bg-white shadow-sm sticky top-0 z-10">
@@ -55,17 +55,9 @@ const WaitlistAdminPage: React.FC = () => {
             <h1 className="text-3xl font-bold text-[#87127C]">Waitlist Submissions</h1>
             <p className="text-gray-600 mt-1">A total of {waitlist.length} users have joined the waitlist.</p>
           </div>
-          <div className="flex items-center space-x-4">
-            <Link href="/" className="text-sm text-[#87127C] hover:text-[#6c0e63] font-semibold py-2 px-4 rounded-lg transition-colors border border-[#87127C]">
-              &larr; Back to Home
-            </Link>
-            <button
-              onClick={handleLogout}
-              className="text-sm text-white bg-[#87127C] hover:bg-[#6c0e63] font-semibold py-2 px-4 rounded-lg transition-colors"
-            >
-              Logout
-            </button>
-          </div>
+          <Link href="/" className="text-sm text-white bg-[#87127C] hover:bg-[#6c0e63] font-semibold py-2 px-4 rounded-lg transition-colors">
+            &larr; Back to Home
+          </Link>
         </div>
       </header>
       <main className="container mx-auto px-6 py-8">

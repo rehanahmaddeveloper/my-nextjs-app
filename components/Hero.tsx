@@ -1,3 +1,11 @@
+// FIX: Add global JSX namespace declaration to fix errors with intrinsic elements.
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      [elemName: string]: any;
+    }
+  }
+}
 import React from 'react';
 import Image from 'next/image';
 
@@ -15,10 +23,10 @@ const Hero: React.FC<HeroProps> = ({ onWaitlistClick }) => {
           {/* Left Column: Text Content */}
           <div className="text-center lg:text-left z-10">
             <h1 className="font-bold text-gray-800 leading-tight">
-              <span className="block text-xl md:text-3xl font-bold text-[#87127C] mb-2">
+              <span className="block text-xl md:text-2xl font-bold text-[#87127C] mb-2">
                 No more endless swiping.
               </span>
-              <span className="text-[32px] leading-snug md:text-3xl">
+              <span className="text-[32px] leading-snug md:text-4xl">
                 Find halal connections that last and connect through shared purpose.
               </span>
             </h1>
@@ -42,8 +50,8 @@ const Hero: React.FC<HeroProps> = ({ onWaitlistClick }) => {
              <Image 
                 src="/images/hero-image.png" // Placeholder for the hero image
                 alt="A happy Muslim couple representing a meaningful connection" 
-                width={550}
-                height={550}
+                width={500}
+                height={500}
                 className="rounded-2xl object-cover w-full max-w-md h-auto aspect-square"
                 priority
              />

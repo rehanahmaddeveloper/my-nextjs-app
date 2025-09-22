@@ -5,6 +5,15 @@ import '../globals.css';
 // FIX: Import 'React' to resolve 'Cannot find namespace React' error.
 import React from 'react';
 
+// FIX: Add global JSX namespace declaration to fix errors with intrinsic elements.
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      [elemName: string]: any;
+    }
+  }
+}
+
 const poppins = Poppins({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],

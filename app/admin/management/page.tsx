@@ -1,5 +1,14 @@
 'use client';
 
+// FIX: Add global JSX namespace declaration to fix errors with intrinsic elements.
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      [elemName: string]: any;
+    }
+  }
+}
+
 import React, { useState, useEffect } from 'react';
 
 interface PendingAdmin {
@@ -37,7 +46,6 @@ const AdminManagementPage: React.FC = () => {
 
   const handleApprove = async (email: string) => {
     setApproving(email);
-    setError(null);
     try {
         const res = await fetch('/api/admin/management', {
             method: 'POST',

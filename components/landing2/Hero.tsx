@@ -1,3 +1,11 @@
+// FIX: Add global JSX namespace declaration to fix errors with intrinsic elements.
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      [elemName: string]: any;
+    }
+  }
+}
 import React from 'react';
 
 const Hero: React.FC = () => {

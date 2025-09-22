@@ -1,4 +1,30 @@
+// FIX: Add global JSX namespace declaration to fix errors with intrinsic elements.
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      [elemName: string]: any;
+    }
+  }
+}
 import React from 'react';
+
+// This SVG component creates the custom white curve at the bottom of the section.
+const SectionCurve: React.FC = () => (
+  <div className="absolute bottom-[-1px] left-0 w-full overflow-hidden leading-[0]">
+    <svg 
+      xmlns="http://www.w3.org/2000/svg" 
+      viewBox="0 0 1200 120" 
+      preserveAspectRatio="none"
+      className="relative block w-full h-[50px] sm:h-[80px] lg:h-[100px]"
+    >
+      <path 
+        d="M1200 120L0 120V0C0 0 200 70 600 70C1000 70 1200 0 1200 0V120Z"
+        className="fill-white"
+      ></path>
+    </svg>
+  </div>
+);
+
 
 const WhySection: React.FC = () => {
   return (
@@ -36,6 +62,9 @@ const WhySection: React.FC = () => {
           
         </div>
       </div>
+
+      {/* The decorative curve at the bottom */}
+      <SectionCurve />
     </section>
   );
 };

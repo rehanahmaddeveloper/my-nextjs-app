@@ -1,3 +1,11 @@
+// FIX: Add global JSX namespace declaration to fix errors with intrinsic elements.
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      [elemName: string]: any;
+    }
+  }
+}
 import React from 'react';
 
 // --- SVG Icon Components ---
@@ -98,10 +106,9 @@ const SolutionSection: React.FC = () => {
         </svg>
       </div>
       <div className="container mx-auto px-6 pt-20 pb-40 lg:pt-28 lg:pb-48 text-center text-white relative z-10">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mx-auto">
-            SoulDeeds makes meaningful, halal connections simple.
-          </h2>
-
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mx-auto">
+          SoulDeeds makes meaningful, halal connections simple.
+        </h2>
         <div className="w-20 h-1 bg-white mx-auto mt-6 mb-12"></div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {solutions.map((solution, index) => (

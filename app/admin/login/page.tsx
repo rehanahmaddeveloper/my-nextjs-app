@@ -1,5 +1,14 @@
 'use client';
 
+// FIX: Add global JSX namespace declaration to fix errors with intrinsic elements.
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      [elemName: string]: any;
+    }
+  }
+}
+
 import React, { useState, FormEvent } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -24,7 +33,6 @@ export default function LoginPage() {
       });
 
       if (res.ok) {
-        router.refresh(); // Refresh to re-run middleware and get session data
         router.push('/admin/waitlist');
       } else {
         const data = await res.json();
